@@ -1,10 +1,12 @@
 /*
-FlexBox
-SafeAreaView
-Touchables
-StatusBar
+FlexBox (v)
+SafeAreaView (usar StatusBar.currentHight en android) (V)
+Touchables (probarlos y configurarlos) (v)
+StatusBar 
 validacion
 estilos generales
+Platform
+Dimension
 */
 import { useState } from "react"
 import {  View,
@@ -17,6 +19,7 @@ import {  View,
           TouchableWithoutFeedback,
           Keyboard, 
           SafeAreaView,
+          StatusBar
         } from "react-native"
 import { v4 as uuidv4 } from 'uuid'
 
@@ -53,9 +56,9 @@ const App = () => {
     setProductSelected(item)
     setModalVisible(true)
   }
-
+  console.log(StatusBar.currentHeight)
   return <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <SafeAreaView style={styles.container}>
+          <SafeAreaView style={{...styles.container,...{marginTop:StatusBar.currentHight}}}>
             <View style={styles.inputContainer}> 
               <TextInput
                 placeholder="Product"
@@ -63,11 +66,12 @@ const App = () => {
                 value={newTitleProduct} 
                 onChangeText={handlerNewTitleProduct}
               />
+
               <Button title="ADD" onPress={handlerAddProduct} />
             </View>
             <View style={styles.listContainer}>
                  <FlatList
-                    data={list}
+                    data={list}S
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item})=>{
                       return  <View>
@@ -79,6 +83,7 @@ const App = () => {
                     }}
                  />
             </View>
+         
             <Modal
              
               animationType="slide"
